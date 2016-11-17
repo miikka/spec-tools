@@ -10,9 +10,14 @@
 (deftest simple-spec-test
   (testing "primitive predicates"
     (is (= (jsc/to-json int?) {:type "integer"}))
+    (is (= (jsc/to-json integer?) {:type "integer"}))
     (is (= (jsc/to-json float?) {:type "number"}))
+    (is (= (jsc/to-json double?) {:type "number" :format "double"}))
     (is (= (jsc/to-json string?) {:type "string"}))
-    (is (= (jsc/to-json #{1 2 3}) {:enum [1 3 2]})))
+    (is (= (jsc/to-json #{1 2 3}) {:enum [1 3 2]}))
+    (is (= (jsc/to-json boolean?) {:type "boolean"}))
+    (is (= (jsc/to-json nil?) {:type "null"}))
+    (is (= (jsc/to-json inst?) {:type "string" :format "date-time"})))
   (testing "simple specs"
     (is (= (jsc/to-json ::int) {:type "integer"}))
     (is (= (jsc/to-json ::set) {:enum [1 3 2]})))

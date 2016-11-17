@@ -1,7 +1,8 @@
 (ns spec-tools.json-schema
+  "Tools for converting specs into JSON Schemata."
   (:require [clojure.spec :as s]))
 
-(defn spec-dispatch
+(defn- spec-dispatch
   [spec]
   (cond
     (or (s/spec? spec) (s/regex? spec) (keyword? spec))
@@ -14,14 +15,24 @@
     (set? spec) ::set
     :else spec))
 
-(defmulti to-json spec-dispatch :default ::default)
+(defmulti to-json "Convert a spec into a JSON Schema." spec-dispatch :default ::default)
 
 (defmethod to-json 'int? [spec] {:type "integer"})
 (defmethod to-json 'clojure.core/int? [spec] {:type "integer"})
 (defmethod to-json int? [spec] {:type "integer"})
+(defmethod to-json integer? [spec] {:type "integer"})
+
 (defmethod to-json float? [spec] {:type "number"})
+(defmethod to-json double? [spec] {:type "number" :format "double"})
+
 (defmethod to-json string? [spec] {:type "string"})
 (defmethod to-json 'clojure.core/string? [spec] {:type "string"})
+
+(defmethod to-json boolean? [spec] {:type "boolean"})
+
+(defmethod to-json nil? [spec] {:type "null"})
+
+(defmethod to-json inst? [spec] {:type "string" :format "date-time"})
 
 (defmethod to-json 'clojure.core/pos? [spec] {:minimum 0 :exclusiveMinimum true})
 
