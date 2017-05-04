@@ -15,7 +15,8 @@
                              [funcool/codeina "0.5.0"]
                              [lein-doo "0.1.7"]
                              [lein-cljsbuild "1.1.6"]
-                             [lein-cloverage "1.0.9"]]
+                             [lein-cloverage "1.0.9"]
+                             [lein-tach "0.3.0"]]
                    :jvm-opts ^:replace ["-server"]
                    ;:global-vars {*warn-on-reflection* true}
                    :dependencies [[org.clojure/clojure "1.9.0-alpha15"]
@@ -25,7 +26,9 @@
                                   [org.clojure/test.check "0.9.0"]
                                   [org.clojure/tools.namespace "0.2.11"]
                                   [com.gfredericks/test.chuck "0.2.7"]
-                                  [metosin/scjsv "0.4.0"]]}
+                                  [metosin/scjsv "0.4.0"]
+                                  ;; Depend on doo explicitly so that Tach sees it.
+                                  [doo "0.1.7"]]}
              :perf {:jvm-opts ^:replace ["-server"]}}
   :aliases {"all" ["with-profile" "dev"]
             "perf" ["with-profile" "default,dev,perf"]
