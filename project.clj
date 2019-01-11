@@ -11,8 +11,7 @@
           :source-uri "https://github.com/metosin/spec-tools/{version}/{filepath}#L{line}"
           :metadata {:doc/format :markdown}}
 
-  :dependencies [[org.clojure/spec.alpha "0.2.176"]
-                 [com.fasterxml.jackson.core/jackson-databind "2.9.8"]]
+  :dependencies [[org.clojure/spec.alpha "0.2.176"]]
 
   :profiles {:dev {:plugins [[jonase/eastwood "0.2.6"]
                              [lein-tach "1.0.0"]
