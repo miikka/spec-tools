@@ -1,0 +1,17 @@
+name: Test
+
+on: [push, pull_request]
+
+jobs:
+  strategy:
+    matrix:
+      test-type: [clj, cljs]
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Clojure dependencies
+      run: lein deps
+    - name: Run tests
+      run: ./scripts/test.sh "{{matrix.test-type}}"
